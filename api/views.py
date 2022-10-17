@@ -24,6 +24,12 @@ def video(data):
 	fh.close()
 	print("\n\nFile has been created\n\n")
 
+
+def image(data):
+	fh = open("./image.jpeg", "wb")
+	fh.write(base64.b64decode(data))
+	fh.close()
+	print("\n\nFile has been created\n\n")
 @api_view(['GET'])
 def apiOverview(request):
 	api_urls = {
@@ -56,8 +62,8 @@ def taskCreate(request):
 	dataLen = len(parsed) - 44
 	data = parsed[113:dataLen]
 	# print("len of string",len(data),data)
-	video(data)
-	return Response('got your video')
+	image(data)
+	return Response('got your image')
 @api_view(['POST'])
 def taskUpdate(request, pk):
 	task = Task.objects.get(id=pk)

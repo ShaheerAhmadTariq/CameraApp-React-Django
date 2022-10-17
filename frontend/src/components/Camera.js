@@ -7,21 +7,7 @@ function Camera() {
   const [capturing, setCapturing] = React.useState(false);
   const [result, setResult] = React.useState(false);
   const [recordedChunks, setRecordedChunks] = React.useState([]);
-  function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-      var cookies = document.cookie.split(';');
-      for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i].trim();
-        // Does this cookie string begin with the name we want?
-        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
-        }
-      }
-    }
-    return cookieValue;
-  }
+  
   const handleStartCaptureClick = React.useCallback(() => {
     console.log("Starting caputure")
     setCapturing(true);
@@ -37,16 +23,13 @@ function Camera() {
 
   const handleDataAvailable = React.useCallback(
     ({ data }) => {
+      console.log("handling data")
       if (data.size > 0) {
         setRecordedChunks((prev) => prev.concat(data));
       }
     },
-    [setRecordedChunks]
-  );
-  const fetchData = React.useCallback(() => {
-    console.log("Fetching data")
+    [setRecordedChunks]);
 
-  })
   const handleStopCaptureClick = React.useCallback(() => {
     console.log("Stopped")
     mediaRecorderRef.current.stop();
@@ -55,9 +38,6 @@ function Camera() {
   }, [mediaRecorderRef, webcamRef, setCapturing]);
  
   const handleDownload = React.useCallback(async () => {
-    // console.log("recordedChunks",recordedChunks.length)
-    let csrftoken = getCookie('csrftoken');
-    
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
         type: "video/webm"
@@ -84,30 +64,7 @@ function Camera() {
       }
       fileReader.readAsDataURL(blob);
       console.log("result: ",value)
-      // fileReader.readAsArrayBuffer(blob);
-      
-      // console.log("file being send has",fileReader)
-      // const reader = blob.stream()
-      // console.log("Reader: ", reader)
-      // var form = new FormData();
-      // form.append('video', blob);
     
-      
-      
-      
-      
-      // console.log("formdata: ", form)
-      // fetch(url, {
-      //   method: 'POST',
-      //   contentType: false,
-      //   processData: false,
-      //   data: fileReader
-      // }).then((response) => {
-      //   console.log("Posted....")
-      //   fetchData()
-      // }).catch(function (e) {
-      //   console.log("Error: ", e)
-      // })
       setRecordedChunks([]);
     }
   }, [recordedChunks]);
