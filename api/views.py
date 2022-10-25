@@ -57,12 +57,13 @@ def taskDetail(request, pk):
 
 @api_view(['POST'])
 def taskCreate(request):
-	parsed = request.body.decode("utf-8") 
-	print(parsed)
-	dataLen = len(parsed) - 44
-	data = parsed[113:dataLen]
-	# print("len of string",len(data),data)
-	image(data)
+	# parsed = request.body.decode("utf-8") 
+	# # print(parsed)
+	# dataLen = len(parsed) - 44
+	# data = parsed[113:dataLen]
+	# # print("len of string",len(data),data)
+	# # print(data)
+	# image(data)
 	return Response('got your image')
 @api_view(['POST'])
 def taskUpdate(request, pk):
