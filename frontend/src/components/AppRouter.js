@@ -2,8 +2,8 @@ import Camera from './Camera.js';
 import TestImage from './TestImage.js';
 
 const router = [
-  {path: '/', element: <Camera/>},
-  {path: '/testing', element: <TestImage/>},
+  {path: '/testing', element: <Camera/>},
+  {path: '/', element: <TestImage/>},
 ];
 
 export default router;

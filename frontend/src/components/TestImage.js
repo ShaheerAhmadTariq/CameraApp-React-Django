@@ -42,7 +42,7 @@ function getVideo()
                             }
                             data.append('video',image_base64);
                             axios.post(url, data, config).then(response => {
-                                  console.log(response.data)
+                                  // console.log(response.data)
                                 setImageState(response.data)
                                   t1= performance.now(); //end time
                                   // console.log('Time taken to capture and send one frame from react and get response from Django is:'+ (t1-t0) +' milliseconds');
